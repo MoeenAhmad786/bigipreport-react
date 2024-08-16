@@ -2,98 +2,76 @@ import React, { useState, useEffect, useRef } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import virtualServers from "../Data/virtualservers.json";
 import ipPort from "./customComponents/ipPort";
 import Name from "./customComponents/Name";
 import LoadBalancer from "./customComponents/loadBalancer";
 import PoolMembers from "./customComponents/PoolMembers";
+import { Modal, Button } from 'react-bootstrap';
+import PoolDetails from "./customComponents/poolModal";
+
 // Define columns for AG Grid
-const initialColumns = [
-  {
-    headerName: "Load Balancer",
-    cellRenderer: LoadBalancer,
-    field: "loadbalancer",
-    sortable: true,
-    filter: true,
-  },
-  {
-    headerName: "Name",
-    field: "name",
-    cellRenderer:Name,
-    sortable: true,
-    filter: true,
-  },
-  // {
-  //   headerName: "Description",
-  //   field: "description",
-  //   sortable: true,
-  //   filter: true,
-  // },
-  {
-    headerName: "IP:Port",
-    valueGetter: (params) => `${params.data.ip}:${params.data.port}`,
-    cellRenderer:ipPort,
-    sortable: true,
-    filter: true,
-  },
-  // {
-  //   headerName: "SNAT",
-  //   valueGetter: (params) =>
-  //     params.data.sourcexlatetype
-  //       ? `SNAT:${params.data.sourcexlatepool || "N/A"}`
-  //       : "Unknown",
-  //   sortable: true,
-  //   filter: true,
-  // },
-  // {
-  //   headerName: "ASM",
-  //   valueGetter: (params) =>
-  //     params.data.asmPolicies ? params.data.asmPolicies.join(", ") : "N/A",
-  //   sortable: true,
-  //   filter: true,
-  // },
-  // {
-  //   headerName: "SSL",
-  //   valueGetter: (params) =>
-  //     `${params.data.sslprofileclient.includes("None") ? "No" : "Yes"}/${
-  //       params.data.sslprofileserver.includes("None") ? "No" : "Yes"
-  //     }`,
-  //   sortable: true,
-  //   filter: true,
-  // },
-  // {
-  //   headerName: "Comp",
-  //   valueGetter: (params) =>
-  //     params.data.compressionprofile === "None" ? "No" : "Yes",
-  //   sortable: true,
-  //   filter: true,
-  // },
-  // {
-  //   headerName: "Persist",
-  //   valueGetter: (params) =>
-  //     params.data.persistence.includes("None") ? "No" : "Yes",
-  //   sortable: true,
-  //   filter: true,
-  // },
-  {
-    headerName: "Pool/Members",
-    valueGetter: (params) => params.data.pools?.join(", ") || "N/A",
-    cellRenderer:PoolMembers,
-    sortable: true,
-    filter: true,
-  },
-];
 
 const VirtualServers = () => {
   const [siteData, setSiteData] = useState([]);
+  const [pool, setPool] = useState(null);
+  const [loadbalancer, setLoadbalancer] = useState(null);
   const [searchText, setSearchText] = useState("");
+  const initialColumns = [
+    {
+      headerName: "Load Balancer",
+      cellRenderer: LoadBalancer,
+      field: "loadbalancer",
+      sortable: true,
+      filter: true,
+    },
+    {
+      headerName: "Name",
+      field: "name",
+      cellRenderer: Name,
+      sortable: true,
+      filter: true,
+    },
+    {
+      headerName: "IP:Port",
+      valueGetter: (params) => `${params.data.ip}:${params.data.port}`,
+      sortable: true,
+      filter: true,
+    },
+    {
+      headerName: "SSL",
+      valueGetter: (params) =>
+        `${params.data.sslprofileclient.includes("None") ? "No" : "Yes"}/${
+          params.data.sslprofileserver.includes("None") ? "No" : "Yes"
+        }`,
+      sortable: true,
+      filter: true,
+    },
+    {
+      headerName: "Pool/Members",
+      valueGetter: (params) => params.data.pools?.join(", ") || "N/A",
+      cellRenderer: (params) => (
+        <PoolMembers
+          {...params}
+          toggleModal={(pool,loadbalancer) => {
+            setShowModal(true)
+            setPool(pool)
+            setLoadbalancer(loadbalancer)}}
+        />
+      ),
+      sortable: true,
+      filter: true,
+    },
+  ];
   const [visibleColumns, setVisibleColumns] = useState(
     initialColumns.map((col) => col.field)
   );
-
+  const [showModal, setShowModal] = useState(false);
 
   const gridApiRef = useRef(null);
-
+  
+  
   useEffect(() => {
     setSiteData(virtualServers);
   }, []);
@@ -104,9 +82,6 @@ const VirtualServers = () => {
       gridApiRef.current.api.setQuickFilter(event.target.value);
     }
   };
-  const columns = initialColumns.filter((col) =>
-    visibleColumns.includes(col.id)
-  );
 
   const toggleColumnVisibility = (columnId) => {
     setVisibleColumns((prevVisibleColumns) =>
@@ -238,10 +213,8 @@ const VirtualServers = () => {
     exportCSV("all_columns.csv", siteData);
   };
 
-
-
   return (
-    <div className="mainsection">
+    <div className="d-flex flex-column">
       <div className="dataTables_wrapper no-footer">
         <div className="dataTables_filter">
           <label>Search all the columns: </label>
@@ -281,14 +254,6 @@ const VirtualServers = () => {
             </button>
           ))}
           <button
-            className="dt-button buttons-copy buttons-html5 tableHeaderColumnButton exportFunctions"
-            type="button"
-            title="Copy current filtered results as text to clipboard"
-            onClick={() => exportCSV("clipboard.csv", siteData)}
-          >
-            <span>Copy</span>
-          </button>
-          <button
             className="dt-button buttons-csv buttons-html5 tableHeaderColumnButton exportFunctions"
             type="button"
             title="Export current filtered results to CSV"
@@ -305,9 +270,9 @@ const VirtualServers = () => {
             <span>Export All to CSV</span>
           </button>
           <button
-            className="dt-button buttons-csv buttons-html5 tableHeaderColumnButton exportFunctions"
+            className="dt-button buttons-print buttons-html5 tableHeaderColumnButton exportFunctions"
             type="button"
-            title="Print the current table"
+            title="Print current filtered results"
             onClick={handlePrint}
           >
             <span>Print</span>
@@ -315,22 +280,30 @@ const VirtualServers = () => {
         </div>
         
       </div>
-      <div className="ag-theme-alpine" style={{ height: 600, width: "100%" }}>
+      <div className="ag-theme-alpine" style={{ height: "600px", width: "100%" }}>
           <AgGridReact
-            rowData={visibleColumns.length > 0 ? filteredData : []}
+            ref={gridApiRef}
+            rowData={filteredData}
             columnDefs={initialColumns}
-            domLayout="autoHeight"
             pagination
             paginationPageSize={10}
-            onGridReady={(params) => {
-              gridApiRef.current = params;
-            }}
-            defaultColDef={{
-              sortable: true,
-              filter: true,
-            }}
           />
         </div>
+
+      {/* Bootstrap Modal */}
+      <Modal size="xl" show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Pool Members</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+         <PoolDetails loadbalancer={loadbalancer} pool={pool}></PoolDetails>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

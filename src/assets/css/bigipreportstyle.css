@@ -715,6 +715,7 @@ a.tooltip p {
      text-align: center; 
     visibility: hidden;
     border-radius: 6px;
+    z-index: 2;
 }
 
 a.tooltip p:before {
@@ -749,7 +750,9 @@ a:hover.tooltip p {
     left: 40%;
     margin-left: -76px;
     z-index: 999;
+   
     white-space: nowrap;
+    
 }
 
 /* Generic class for the lightbox divs that contains detailed information about the pools, virtual servers and irules etc. */

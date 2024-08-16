@@ -18,7 +18,7 @@ const loadBalancer = (props) => {
         if (type === 'display') {
           return `<a href="https://${loadbalancer}" target="_blank" class="plainLink">${balancer}</a>`;
         }
-        return <a href="https://${loadbalancer}" target="_blank" class="plainLink">${balancer}</a>;
+        return <a href="https://${loadbalancer}" target="_blank" class="plainLink">{balancer}</a>;
     }
     useEffect(()=>{
        setData( loadBlancerFunc())
