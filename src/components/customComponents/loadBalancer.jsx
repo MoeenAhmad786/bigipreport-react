@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import Prefferences from '../../Data/preferences.json';
+import React, { useContext, useEffect, useState } from 'react'
+import preferences from "../../Data/preferences.json";
 
 
 const loadBalancer = (props) => {
+ 
     console.log(props,"props--->loadbalancer")
     const loadbalancer=props.data.loadbalancer;
     const type=props.type;
-    const [prefferences, setPrefferences] = useState(Prefferences);
+    const [prefferences, setPrefferences] = useState(preferences);
     const [data,setData]=useState(null)
     const loadBlancerFunc=()=>{
         let balancer;

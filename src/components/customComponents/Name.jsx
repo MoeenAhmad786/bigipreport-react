@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import virtualServers from "../../Data/virtualservers.json";
+import React, { useContext, useState } from 'react';
 import ShowVirtualServerDetails from "./modal" // Ensure the correct file path
+import virtualServers from "../../Data/virtualservers.json";
 
 const Name = (props) => {
+
   const { loadbalancer, name } = props.data;
   const [toggle, setToggle] = useState(false);
 

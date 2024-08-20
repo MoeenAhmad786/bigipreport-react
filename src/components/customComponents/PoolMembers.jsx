@@ -3,7 +3,7 @@ import poolsMap from "../../Data/pools.json";
 import virtualServers from "../../Data/virtualservers.json";
 import { Table } from 'react-bootstrap';
 
-const PoolMember = ({ member, type, idx }) => {
+export const PoolMember = ({ member, type, idx }) => {
     console.log(idx,"in member index")
   const { name, ip, port } = member;
   const memberName = name.split("/")[2];
@@ -27,7 +27,7 @@ const PoolMember = ({ member, type, idx }) => {
 
 const Pool = ({ loadbalancer, name, type,toggleModal,pool }) => {
   if (name === "N/A") return name;
-  const poolName = name.replace(/^\/Common\//, "");
+  const poolName = name?.replace(/^\/Common\//, "");
 
   return (
        <>
@@ -59,7 +59,7 @@ const Pool = ({ loadbalancer, name, type,toggleModal,pool }) => {
   );
 };
 
-const PoolCell = ({ pool, type,toggleModal }) => {
+export const PoolCell = ({ pool, type,toggleModal }) => {
   if (!pool) return null;
 
   const { loadbalancer, name, members } = pool;
@@ -72,6 +72,7 @@ const PoolCell = ({ pool, type,toggleModal }) => {
 };
 
 const PoolMembers = (props) => {
+
     console.log(props,"props")
   const { pools, name } = props.data;
   const {toggleModal}=props
@@ -110,18 +111,16 @@ const PoolMembers = (props) => {
                 onClick={() => handleToggle(tid)}
               >
                 {expandedPools[tid]
-                  ? <div className="d-flex justify-content-between " style={{height:'150px'}}>
-                      <PoolCell pool={pool} type={type} rowIndex={index} toggleModal={toggleModal} />
-                      <Table striped bordered hover size="sm">
-                        <tbody>
+                  ? <div className="d-flex justify-content-between " >
+                      <div className="w-50"><PoolCell pool={pool} type={type} rowIndex={index} toggleModal={toggleModal} /></div>
+                      <div className="w-50 px-2 py-1  text-center">
                           
                           {pool.members && pool.members.map((member, idx) => (
                             
                               <PoolMember member={member} type={type} idx={idx}/>
                             
                           ))}
-                        </tbody>
-                      </Table>
+                        </div>
                     </div>
                   : `Show ${pools.length} associated pools`}
               </div>

@@ -1,19 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import virtualServers from "../Data/virtualservers.json";
+
 import ipPort from "./customComponents/ipPort";
 import Name from "./customComponents/Name";
 import LoadBalancer from "./customComponents/loadBalancer";
 import PoolMembers from "./customComponents/PoolMembers";
 import { Modal, Button } from 'react-bootstrap';
 import PoolDetails from "./customComponents/poolModal";
+import virtualServers from ".././Data/virtualservers.json";
 
 // Define columns for AG Grid
 
 const VirtualServers = () => {
+
   const [siteData, setSiteData] = useState([]);
   const [pool, setPool] = useState(null);
   const [loadbalancer, setLoadbalancer] = useState(null);
@@ -25,6 +27,8 @@ const VirtualServers = () => {
       field: "loadbalancer",
       sortable: true,
       filter: true,
+      flex:1,
+      
     },
     {
       headerName: "Name",
@@ -32,12 +36,16 @@ const VirtualServers = () => {
       cellRenderer: Name,
       sortable: true,
       filter: true,
+      flex:1,
+      
     },
     {
       headerName: "IP:Port",
       valueGetter: (params) => `${params.data.ip}:${params.data.port}`,
       sortable: true,
       filter: true,
+      flex:1,
+    
     },
     {
       headerName: "SSL",
@@ -47,6 +55,8 @@ const VirtualServers = () => {
         }`,
       sortable: true,
       filter: true,
+      flex:1,
+      
     },
     {
       headerName: "Pool/Members",
@@ -62,6 +72,9 @@ const VirtualServers = () => {
       ),
       sortable: true,
       filter: true,
+      flex:2,
+      autoHeight: true,
+     
     },
   ];
   const [visibleColumns, setVisibleColumns] = useState(
