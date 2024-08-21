@@ -11,9 +11,10 @@ import PoolDetails from "./customComponents/poolModal";
 import IrulesJson from ".././Data/irules.json";
 import PoolMembersCellRenderer from "./customComponents/PoolMembersCellRenderer";
 import PoolJson from ".././Data/pools.json";
-import DataGroups from "./DataGroups";
+import DataGroup from "./customComponents/DataGroup";
 import dataGroupJson from ".././Data/datagroups.json"
 import vsJson from ".././Data/virtualservers.json"
+import IRuleName from "./customComponents/IRuleName";
 // Define columns for AG Grid
 
 const Irules = () => {
@@ -33,22 +34,20 @@ const Irules = () => {
     {
       headerName: "Name",
       field: "name",
-      // cellRenderer: (params) => {
-      //   const pool = params.data; // Assuming params.data is the pool
-      //   return (
-      //     <>
-      //       <PoolCell
-      //         pool={pool}
-      //         type={"display"}
-      //         toggleModal={(pool,loadbalancer) => {
-      //           setShowModal(true);
-      //           setPool(pool);
-      //           setLoadbalancer(loadbalancer);
-      //         }}
-      //       />
-      //     </>
-      //   );
-      // }
+      cellRenderer: (params) => {
+        const irule = params.data; // Assuming params.data is the pool
+        return (
+          <>
+            <IRuleName
+              data={irule}
+              type={"display"}
+              toggleModal={() => {
+                
+              }}
+            />
+          </>
+        );
+      },
       sortable: true,
       filter: true,
       flex:1,
@@ -98,10 +97,9 @@ const Irules = () => {
           <>
             {datagroups.length > 0
               ? datagroups.map((Data, idx) => (
-                  <DataGroups
+                  <DataGroup
                     key={idx}
-                    pool={DataProp = dataGroupFind(Data)}
-                    type={"display"}
+                    data={DataProp = dataGroupFind(Data)}
                     toggleModal={() => {
                       //check the 
                     }}
