@@ -5,6 +5,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 const DataGroup = (props) => {
   console.log(props,"props in datagroup")
   const { loadbalancer, name } = props.data;
+  const toggleModal=props.toggleModal
   const type = "display";
   const datagroupName = name.replace(/^\/Common\//, '');
 
@@ -33,7 +34,8 @@ const DataGroup = (props) => {
               className=""
               data-originalvirtualservername={name}
               data-loadbalancer={loadbalancer}
-              href={`Javascript:showDataGroupDetails('${name}','${loadbalancer}');`}
+              href="#"
+              onClick={()=>{toggleModal(name,loadbalancer)}}
             >
               {datagroupName}
               <span className="detailsicon">

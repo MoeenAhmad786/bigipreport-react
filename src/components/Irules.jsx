@@ -3,7 +3,6 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import LoadBalancer from "./customComponents/loadBalancer";
 import { PoolCell } from "./customComponents/PoolMembers";
 import { Modal, Button, Table } from "react-bootstrap";
@@ -12,9 +11,11 @@ import IrulesJson from ".././Data/irules.json";
 import PoolMembersCellRenderer from "./customComponents/PoolMembersCellRenderer";
 import PoolJson from ".././Data/pools.json";
 import DataGroup from "./customComponents/DataGroup";
-import dataGroupJson from ".././Data/datagroups.json"
-import vsJson from ".././Data/virtualservers.json"
+import dataGroupJson from ".././Data/datagroups.json";
+import vsJson from ".././Data/virtualservers.json";
 import IRuleName from "./customComponents/IRuleName";
+import DataGroupModal from "./customComponents/DataGroupModal.jsx";
+import IruleModal from "./customComponents/IruleModal.jsx";
 // Define columns for AG Grid
 
 const Irules = () => {
@@ -29,7 +30,7 @@ const Irules = () => {
       field: "loadbalancer",
       sortable: true,
       filter: true,
-      flex:1,
+      flex: 1,
     },
     {
       headerName: "Name",
@@ -38,19 +39,19 @@ const Irules = () => {
         const irule = params.data; // Assuming params.data is the pool
         return (
           <>
-            <IRuleName
-              data={irule}
-              type={"display"}
-              toggleModal={() => {
-                
-              }}
-            />
+            <IRuleName data={irule} type={"display"} toggleModal={(irule, iruleLoadbalancer) => {
+                      setShowModalIrule(true);
+                      setIrule(irule);
+                      setIruleLoadbalancer(iruleLoadbalancer);
+                      console.log(irule, iruleLoadbalancer,"in toggle irule")
+                      //check the
+                    }} />
           </>
         );
       },
       sortable: true,
       filter: true,
-      flex:1,
+      flex: 1,
     },
     {
       headerName: "Associated Pools",
@@ -67,7 +68,7 @@ const Irules = () => {
               ? pools.map((Pool, idx) => (
                   <PoolCell
                     key={idx}
-                    pool={PoolProp = poolFind(Pool)}
+                    pool={(PoolProp = poolFind(Pool))}
                     type={"display"}
                     toggleModal={(pool, loadbalancer) => {
                       setShowModal(true);
@@ -82,7 +83,7 @@ const Irules = () => {
       },
       sortable: true,
       filter: true,
-      flex:1,
+      flex: 1,
     },
     {
       headerName: "Associated DataGroups",
@@ -99,9 +100,13 @@ const Irules = () => {
               ? datagroups.map((Data, idx) => (
                   <DataGroup
                     key={idx}
-                    data={DataProp = dataGroupFind(Data)}
-                    toggleModal={() => {
-                      //check the 
+                    data={(DataProp = dataGroupFind(Data))}
+                    toggleModal={(dataGroup, DataLoadbalancer) => {
+                      setShowModaldata(true);
+                      setDataGroup(dataGroup);
+                      setDataLoadbalancer(DataLoadbalancer);
+                      console.log(dataGroup, DataLoadbalancer, "in toggle");
+                      //check the
                     }}
                   />
                 ))
@@ -111,11 +116,11 @@ const Irules = () => {
       },
       sortable: true,
       filter: true,
-      flex:1,
+      flex: 1,
     },
     {
       headerName: "Associated Virtual Servers",
-      // cellRenderer: (params) => (    USE same as the virtual server name also fetch the virtual server first 
+      // cellRenderer: (params) => (    USE same as the virtual server name also fetch the virtual server first
       //   <PoolMembersCellRenderer members={params.data.members}/>
       // ),
       cellRenderer: (params) => {
@@ -128,18 +133,18 @@ const Irules = () => {
         return (
           <>
             {virtualServers.length > 0
-              ? virtualServers.map((vserver, idx) => (
-                  // <DataGroups   ///change the component
-                  //   key={idx}
-                  //   pool={vsProp = VSFind(vserver)}
-                  //   type={"display"}
-                  //   toggleModal={() => {
-                  //     //check the 
-                  //   }}
-                  // />
-                  " "
-                  
-                ))
+              ? virtualServers.map(
+                  (vserver, idx) =>
+                    // <DataGroups   ///change the component
+                    //   key={idx}
+                    //   pool={vsProp = VSFind(vserver)}
+                    //   type={"display"}
+                    //   toggleModal={() => {
+                    //     //check the
+                    //   }}
+                    // />
+                    " "
+                )
               : "None"}
           </>
         );
@@ -147,7 +152,7 @@ const Irules = () => {
       autoHeight: true,
       sortable: true,
       filter: true,
-      flex:1
+      flex: 1,
     },
     {
       headerName: "Length",
@@ -155,13 +160,19 @@ const Irules = () => {
       autoHeight: true,
       sortable: true,
       filter: true,
-      flex:1,
+      flex: 1,
     },
   ];
   const [visibleColumns, setVisibleColumns] = useState(
     initialColumns.map((col) => col.field)
   );
   const [showModal, setShowModal] = useState(false);
+  const [showModalData, setShowModaldata] = useState(false);
+  const [showModalIrule, setShowModalIrule] = useState(false);
+  const [dataGroup, setDataGroup] = useState(null);
+  const [Irule, setIrule] = useState(null);
+  const [dataLoadbalancer, setDataLoadbalancer] = useState(null);
+  const [iruleLoadbalancer, setIruleLoadbalancer] = useState(null);
 
   const gridApiRef = useRef(null);
 
@@ -395,6 +406,53 @@ const Irules = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        size="lg"
+        show={showModalData}
+        onHide={() => setShowModaldata(false)}
+      >
+        <Modal.Body>
+          <DataGroupModal
+            loadbalancer={dataLoadbalancer}
+            datagroup={dataGroup}
+          ></DataGroupModal>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModaldata(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        size="lg"
+        show={showModalIrule}
+        onHide={() => setShowModalIrule(false)}
+      >
+        <Modal.Body>
+          <IruleModal
+           
+            name={Irule}
+            loadbalancer={iruleLoadbalancer}
+            toggleData={(dataGroup, DataLoadbalancer) => {
+              setShowModaldata(true);
+              setDataGroup(dataGroup);
+              setDataLoadbalancer(DataLoadbalancer);
+              console.log(dataGroup, DataLoadbalancer, "in toggle");
+              //check the
+            }}
+            togglePool={(pool, loadbalancer) => {
+              setShowModal(true);
+              setPool(pool);
+              setLoadbalancer(loadbalancer);
+            }}
+          ></IruleModal>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModalIrule(false)}>
             Close
           </Button>
         </Modal.Footer>

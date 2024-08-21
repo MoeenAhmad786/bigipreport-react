@@ -5,6 +5,7 @@ import imgDetails from '../../../src/assets/images/details.png'; // Adjust the p
 const IRuleName = (props) => {
   console.log(props,"props in irule name")
     const { loadbalancer, name } = props.data;
+    const toggleModal=props.toggleModal
   const type = "display";
   const ruleName = name.replace(/^\/Common\//, '');
 
@@ -15,14 +16,15 @@ const IRuleName = (props) => {
   );
 
   return (
-    <div>
+    <div onClick={()=>{toggleModal(name,loadbalancer)}}>
       {type === 'display' && (
         <>
           <span className="">
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href={`https://${loadbalancer}/tmui/Control/jspmap/tmui/locallb/rule/properties.jsp?name=${name}`}
+              href="#"
+              
             >
            
             </a>
@@ -35,7 +37,8 @@ const IRuleName = (props) => {
               className=""
               data-originalvirtualservername={name}
               data-loadbalancer={loadbalancer}
-              href="#"
+            
+              
             >
               {ruleName}
               <span className="px-2">
