@@ -428,7 +428,7 @@ const Irules = () => {
         </Modal.Footer>
       </Modal>
       <Modal
-        size="lg"
+        size="xl"
         show={showModalIrule}
         onHide={() => setShowModalIrule(false)}
       >

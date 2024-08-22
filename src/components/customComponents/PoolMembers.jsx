@@ -28,7 +28,7 @@ export const PoolMember = ({ member, type, idx }) => {
 const Pool = ({ loadbalancer, name, type,toggleModal,pool }) => {
   if (name === "N/A") return name;
   const poolName = name?.replace(/^\/Common\//, "");
-
+  console.log(poolName,"name in pool")
   return (
        <>
       {type === "display" && (
@@ -61,7 +61,7 @@ const Pool = ({ loadbalancer, name, type,toggleModal,pool }) => {
 
 export const PoolCell = ({ pool, type,toggleModal }) => {
   if (!pool) return null;
-
+  console.log(pool,"pool in pool cell")
   const { loadbalancer, name, members } = pool;
 
   return (
@@ -73,7 +73,7 @@ export const PoolCell = ({ pool, type,toggleModal }) => {
 
 const PoolMembers = (props) => {
 
-    console.log(props,"props")
+    console.log(props,"props in poolMembers")
   const { pools, name } = props.data;
   const {toggleModal}=props
   const virtualServer = virtualServers.find((o) => o.name === name);
