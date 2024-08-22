@@ -1,28 +1,28 @@
 [
   {
-    "supportErrorMessage": null,
-    "category": "Virtual Edition",
-    "statusvip": {
-      "state": null,
-      "url": "",
-      "working": null
-    },
-    "success": true,
-    "model": "Z100",
-    "sync": "green",
-    "color": "green",
-    "isonlydevice": true,
-    "version": "16.0.1.1",
-    "name": "bigip.xip.se",
-    "baseBuild": "unknown",
-    "modules": {
-      "asm": "The Application Security Module.",
-      "ltm": "The Local Traffic Manager Module.",
-      "ilx": "iRulesLX"
-    },
-    "build": "0.0.6",
-    "serial": "IGDVXTR",
     "active": true,
-    "ip": "bigip.xip.se"
+    "sync": "green",
+    "build": "0.0.28",
+    "success": true,
+    "category": "Virtual Edition",
+    "ip": "192.168.70.245",
+    "supportErrorMessage": null,
+    "color": "green",
+    "model": "Z100",
+    "modules": {
+      "ltm": "The Local Traffic Manager Module.",
+      "ilx": "iRulesLX",
+      "afm": "No description found"
+    },
+    "statusvip": {
+      "url": "https://poolstatus.xip.se",
+      "working": null,
+      "state": null
+    },
+    "serial": "GBZKWOC",
+    "baseBuild": "unknown",
+    "version": "16.1.2.2",
+    "isonlydevice": true,
+    "name": "bigip.xip.se"
   }
 ]

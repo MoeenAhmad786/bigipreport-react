@@ -1,16 +1,16 @@
 [
   {
-    "definition": "{\n    Name: loadbalancing-se-policy\n    Strategy: first-match\n    Rule No.1: Select-lb-se\n        Match all of the following conditions:\n        -All traffic.\n\n        Do the following when traffic matches:\n        -Forward traffic to pool '/Common/loadbalancing-se' at request time.\n}",
-    "loadbalancer": "bigip.xip.se",
+    "definition": "{\n    Name: loadbalancing-se-policy\n    Strategy: first-match\n    Rule No.1: Select-lb-se\n        Match all of the following conditions:\n        -All traffic.\n\n        Do the following when traffic matches:\n}",
+    "virtualservers": [],
     "name": "/Common/Drafts/loadbalancing-se-policy",
-    "virtualservers": []
+    "loadbalancer": "bigip.xip.se"
   },
   {
-    "definition": "{\n    Name: forward_policy\n    Strategy: best-match\n    Rule No.1: forward_to_pool\n        Match all of the following conditions:\n        -All traffic.\n\n        Do the following when traffic matches:\n        -Forward traffic to pool '/Sample_http_08/A1/web_pool' at request time.\n}",
-    "loadbalancer": "bigip.xip.se",
-    "name": "/Sample_http_08/A1/forward_policy",
+    "definition": "{\n    Name: forward_policy\n    Strategy: best-match\n    Rule No.1: forward_to_pool\n        Match all of the following conditions:\n        -All traffic.\n\n        Do the following when traffic matches:\n}",
     "virtualservers": [
       "/Sample_http_08/A1/service"
-    ]
+    ],
+    "name": "/Sample_http_08/A1/forward_policy",
+    "loadbalancer": "bigip.xip.se"
   }
 ]

@@ -1,72 +1,72 @@
 [
   {
-    "datetime": "2022-01-29 23:09:26",
-    "message": "Successfully loaded config file: /Users/patrik/Documents/BigIPReport/bigipreportconfig.xml",
-    "severity": "SUCCESS"
+    "severity": "SUCCESS",
+    "datetime": "2024-02-08 13:25:50",
+    "message": "Successfully loaded config file: ./config/bigipreportconfig.xml"
   },
   {
-    "datetime": "2022-01-29 23:09:26",
-    "message": "Insecure SkipCertificateCheck enabled, consider using valid certificates and DNS names",
-    "severity": "WARNING"
+    "severity": "WARNING",
+    "datetime": "2024-02-08 13:25:50",
+    "message": "Insecure SkipCertificateCheck enabled, consider using valid certificates and DNS names"
   },
   {
-    "datetime": "2022-01-29 23:09:26",
-    "message": "Pre execution checks were successful",
-    "severity": "SUCCESS"
+    "severity": "SUCCESS",
+    "datetime": "2024-02-08 13:25:50",
+    "message": "Pre execution checks were successful"
   },
   {
-    "datetime": "2022-01-29 23:09:26",
-    "message": "Start-Job bigip.xip.se (1 / 10, Wait: 0)",
-    "severity": "SUCCESS"
+    "severity": "SUCCESS",
+    "datetime": "2024-02-08 13:25:50",
+    "message": "Start-Job 192.168.70.245 (1 / 10, Wait: 0)"
   },
   {
-    "datetime": "2022-01-29 23:09:27",
-    "message": "bigip.xip.se:Successfully loaded config file: /Users/patrik/Documents/BigIPReport/bigipreportconfig.xml",
-    "severity": "SUCCESS"
+    "severity": "SUCCESS",
+    "datetime": "2024-02-08 13:25:51",
+    "message": "192.168.70.245:Successfully loaded config file: ./config/bigipreportconfig.xml"
   },
   {
-    "datetime": "2022-01-29 23:09:27",
-    "message": "bigip.xip.se:Insecure SkipCertificateCheck enabled, consider using valid certificates and DNS names",
-    "severity": "WARNING"
+    "severity": "WARNING",
+    "datetime": "2024-02-08 13:25:51",
+    "message": "192.168.70.245:Insecure SkipCertificateCheck enabled, consider using valid certificates and DNS names"
   },
   {
-    "datetime": "2022-01-29 23:09:27",
-    "message": "bigip.xip.se:Pre execution checks were successful",
-    "severity": "SUCCESS"
+    "severity": "SUCCESS",
+    "datetime": "2024-02-08 13:25:52",
+    "message": "192.168.70.245:Pre execution checks were successful"
   },
   {
-    "datetime": "2022-01-29 23:09:28",
-    "message": "bigip.xip.se:Got auth token (Try 1)",
-    "severity": "SUCCESS"
+    "severity": "SUCCESS",
+    "datetime": "2024-02-08 13:25:53",
+    "message": "192.168.70.245:Got auth token (Try 1)"
   },
   {
-    "datetime": "2022-01-29 23:09:34",
-    "message": "bigip.xip.se:Stats: VS:13 P:12 R:18 POL:2 DG:12 C:5 M:15 ASM:0 T:5.818693",
-    "severity": "SUCCESS"
+    "severity": "SUCCESS",
+    "datetime": "2024-02-08 13:28:12",
+    "message": "192.168.70.245:Stats: VS:17 P:16 N:24 R:27 POL:2 DG:15 C:7 M:15 ASM:0 T:139.560879"
   },
   {
-    "datetime": "2022-01-29 23:09:35",
-    "message": "No missing data was detected, sending alerts and compiling the report",
-    "severity": "SUCCESS"
+    "severity": "SUCCESS",
+    "datetime": "2024-02-08 13:28:14",
+    "message": "No missing data was detected, sending alerts and compiling the report"
   },
   {
-    "datetime": "2022-01-29 23:09:35",
-    "message": "No certificate alerting channel has been enabled",
-    "severity": "INFO"
+    "severity": "INFO",
+    "datetime": "2024-02-08 13:28:14",
+    "message": "No certificate alerting channel has been enabled"
   },
   {
-    "datetime": "2022-01-29 23:09:35",
-    "message": "Support Checks has been disabled, skipping",
-    "severity": "INFO"
+    "severity": "INFO",
+    "datetime": "2024-02-08 13:28:14",
+    "message": "Support Checks has been disabled, skipping"
   },
   {
-    "datetime": "2022-01-29 23:09:35",
-    "message": "No failed devices alerting channel has been enabled",
-    "severity": "INFO"
+    "severity": "INFO",
+    "datetime": "2024-02-08 13:28:14",
+    "message": "No failed devices alerting channel has been enabled"
   },
   {
-    "datetime": "2022-01-29 23:09:35",
-    "message": "Stats: G:1 LB:16 VS:13 P:12 R:18 POL:2 DG:12 C:5 M:15 ASM:0 T:9.710219",
-    "severity": "SUCCESS"
+    "severity": "SUCCESS",
+    "datetime": "2024-02-08 13:28:14",
+    "message": "Stats: G:1 LB:16 VS:17 P:16 N:24 R:27 POL:2 DG:15 C:7 M:15 ASM:0 T:144.565995"
   }
 ]

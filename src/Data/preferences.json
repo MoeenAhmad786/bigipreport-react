@@ -1,18 +1,22 @@
 {
-  "supportCheckEnabled": false,
-  "startTime": "2022-01-29T23:09:26.198555+01:00",
-  "NavLinks": {},
-  "regexSearch": true,
-  "scriptServer": "MacBook-Pro.local",
-  "HideLoadBalancerFQDN": true,
-  "PollingMaxPools": 50,
-  "PollingMaxQueue": 2,
-  "scriptVersion": "5.6.3",
-  "ShowiRules": true,
-  "executionTime": 0.165633,
   "PollingRefreshRate": 60,
-  "autoExpandPools": false,
+  "HideLoadBalancerFQDN": true,
+  "ShowiRules": true,
   "showAdcLinks": false,
+  "supportCheckEnabled": false,
+  "executionTime": 2.4140698,
+  "startTime": "2024-02-08T13:25:50.237411+08:00",
+  "NavLinks": {
+    "DevCentral": "https://community.f5.com/",
+    "F5 Support": "https://my.f5.com",
+    "json": "json/"
+  },
+  "regexSearch": true,
+  "autoExpandPools": false,
+  "ShowiRuleLinks": true,
+  "scriptVersion": "5.7.8",
+  "PollingMaxPools": 50,
   "ShowDataGroupLinks": true,
-  "ShowiRuleLinks": true
+  "scriptServer": "MacBook-Pro.local",
+  "PollingMaxQueue": 2
 }
